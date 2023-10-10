@@ -1,7 +1,7 @@
-const contract_address="0x4a39c65b627493990678f894A96DE129968E822f";
-const govt_Address="0x4191B0E7FF2468FA2eF718Ad377f54000AF320E0";
+export const contract_address="0x4a39c65b627493990678f894A96DE129968E822f";
+export const govt_Address="0x4191B0E7FF2468FA2eF718Ad377f54000AF320E0";
 
-const contractABI=[
+export const contractABI=[
 	{
 		"inputs": [],
 		"name": "submitTip",
