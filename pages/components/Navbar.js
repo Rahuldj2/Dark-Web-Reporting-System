@@ -32,7 +32,7 @@ const Navbar = () => {
         <nav className={`${styles.nav} ${scrolling ? styles.affix : ''}`}>
             <div className={styles.container}>
                 <div className={styles.logo}>
-                    <a href="#">Your Logo</a>
+                    <a href="#">A.S.U.R.</a>
                 </div>
                 <div id="mainListDiv" className={styles.mainList}>
                     <ul className={styles.navlinks}>

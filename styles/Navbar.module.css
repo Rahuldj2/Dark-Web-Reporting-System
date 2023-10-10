@@ -6,7 +6,7 @@
     position: fixed;
     line-height: 65px;
     text-align: center;
-    background-color: var(--darkblue);
+    background-color: var(--goodpurple);
     padding-bottom: 1rem;
     transition: background-color 0.4s ease, padding 0.4s ease;
 }
@@ -89,7 +89,7 @@
 .myH2 {
     text-align: center;
     font-size: 4rem;
-    color: var(--darkblue);
+    color: var(--goodpurple);
     /* Adjust the color as needed */
 }
 
@@ -98,7 +98,7 @@
     padding-left: 15%;
     padding-right: 15%;
     font-size: 20px;
-    color: var(--darkblue);
+    color: var(--goodpurple);
     /* Adjust the color as needed */
 }
 

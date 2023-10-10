@@ -38,11 +38,13 @@
   --white: #fff;
   --white70: #ffffff70;
   --black: #000;
-  --darkblue: #072158;
+  --goodpurple: #072158;
   --green: #00e676;
   --indigo: #1a294b;
   --screenblack: #111;
   --codegreen: #00a51b;
+  /* --goodpurple: #AD99E4; */
+  --goodpurple: #3d2a70;
 
 }
 
