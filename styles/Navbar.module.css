@@ -1,0 +1,109 @@
+/* Navbar.module.css */
+
+.nav {
+    width: 100%;
+    height: 65px;
+    position: fixed;
+    line-height: 65px;
+    text-align: center;
+    background-color: var(--goodpurple);
+    padding-bottom: 1rem;
+    transition: background-color 0.4s ease, padding 0.4s ease;
+}
+
+.affix {
+    padding: 0;
+    background-color: var(--screenblack);
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    float: left;
+    width: auto;
+    height: auto;
+    padding-left: 3rem;
+}
+
+.logo a {
+    text-decoration: none;
+    color: var(--white);
+    font-size: 2.5rem;
+}
+
+.logo a:hover {
+    color: var(--green);
+}
+
+.mainList {
+    height: 65px;
+    float: right;
+}
+
+.navlinks {
+    width: 100%;
+    height: 65px;
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navlinks li {
+    width: auto;
+    height: 65px;
+    padding: 0rem 1.5rem;
+    /* background-color: aquamarine; */
+    /* padding-right: 3rem; */
+}
+
+.navlinks li a {
+    text-decoration: none;
+    color: var(--white);
+    line-height: 65px;
+    font-size: 2.4rem;
+}
+
+.navlinks li.active {
+    background-color: black;
+}
+
+.navlinks li.active a {
+    color: var(--codegreen);
+}
+
+/* Home section */
+
+.home {
+    width: 100%;
+    height: 100vh;
+    background-image: url(https://images.unsplash.com/photo-1498550744921-75f79806b8a7?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=b0f6908fa5e81286213c7211276e6b3d&auto=format&fit=crop&w=1500&q=80);
+    background-position: center top;
+    background-size: cover;
+}
+
+.myH2 {
+    text-align: center;
+    font-size: 4rem;
+    color: var(--goodpurple);
+    /* Adjust the color as needed */
+}
+
+.myP {
+    text-align: justify;
+    padding-left: 15%;
+    padding-right: 15%;
+    font-size: 20px;
+    color: var(--goodpurple);
+    /* Adjust the color as needed */
+}
+
+@media all and (max-width: 700px) {
+    .myP {
+        padding: 2%;
+    }
+}
