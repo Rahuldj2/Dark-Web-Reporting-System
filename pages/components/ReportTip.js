@@ -4,6 +4,25 @@ import styles from '../../styles/ReportTip.module.css';
 import { ethers } from 'ethers';
 import { contractABI, contract_address } from '../../Contracts/ContractDetails.js'
 import Web3 from "web3";
+// Initialize Firebase
+import {initializeApp} from 'firebase/app';
+import {collection, getFirestore,addDoc} from 'firebase/firestore';
+
+const firebaseConfig = {
+    apiKey: "AIzaSyBrb9MnM6Gp5rrI-1xDrjWJMqJ0RNlvu3M",
+    authDomain: "asur-dcb94.firebaseapp.com",
+    projectId: "asur-dcb94",
+    storageBucket: "asur-dcb94.appspot.com",
+    messagingSenderId: "223262599301",
+    appId: "1:223262599301:web:a759110fc75e57864aa1ec",
+    measurementId: "G-CNTD2ECYTG"
+  };
+
+  const app = initializeApp(firebaseConfig);
+// Initialize Firebase
+
+
+const db = getFirestore(app);
 
 
 const ReportTip = () => {
@@ -38,30 +57,39 @@ const ReportTip = () => {
     const handleSubmit = async () => {
         try {
             // Connect to Metamask
-            const { contract, userAccount }=await metaSubmit();
+          const { contract, userAccount }=await metaSubmit();
 
-            if (contract) {
+           if (contract) {
                 // Perform contract interaction here
                 // For example, you can call contract methods or send transactions
-                console.log('Contract instance:', contract);
+               console.log('Contract instance:', contract);
 
-                // Example: Call a contract method
+                // // Example: Call a contract method
                 // const result = await contract.methods.someMethod().call();
                 // console.log('Result of contract method:', result);
 
                 // Example: Send a transaction to a contract method
-                //fixing a mortgage amount of 0.4 ether for reporting tip
-                //will use this same logic for reverse transaction once government view is made
-                const tx = await contract.methods.submitTip().send({
-                    from: userAccount,
-                    value: ethers.parseEther('0.4'), // Send 0.4 ether with the transaction
-                });
-                console.log('Transaction hash:', tx.transactionHash);
-
+                // fixing a mortgage amount of 0.4 ether for reporting tip
+                // will use this same logic for reverse transaction once government view is made
+            //     const tx = await contract.methods.submitTip().send({
+            //         from: userAccount,
+            //         value: ethers.parseEther('0.00001'), // Send 0.4 ether with the transaction
+            //     });
+            //    console.log('Transaction hash:', tx.transactionHash);
+              const collref = collection(db,"users");
+              await addDoc(collref,{
+                url: url,
+                    description: description,
+                    walletId: walletId,
+                    solved:false,
+              })
+              
+            
+                  console.log('Form data stored in Firestore.');
                 console.log('Form submitted!');
             } else {
                 console.log('MetaMask not available.');
-            }
+           }
         } catch (error) {
             console.error('Error:', error);
         }
