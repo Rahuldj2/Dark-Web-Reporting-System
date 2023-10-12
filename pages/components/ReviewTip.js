@@ -19,9 +19,23 @@ const FloatingWindow = ({ tip,onClose }) => (
     <div className={styles.floatingWindow}>
         <h2>Tip Details</h2>
         <p><strong>Tip ID:</strong> {tip.id}</p>
+        <p><strong>Date:</strong> {formatDate(tip.datetime)}</p>
+        <p><strong>Time:</strong> {tip.datetime.toLocaleTimeString()}</p>
+        <p><strong>Wallet ID:</strong> {tip.walletId || 'N/A'}</p>
+        <p><strong>Amount of Stake:</strong> {tip.amount || 'N/A'}</p>
         <p><strong>URL:</strong> {tip.url}</p>
-        <p><strong>Datetime:</strong> {formatDate(tip.datetime)}</p>
-        <button onClick={onClose}>Close</button>
+        <p><strong>Approval Status:</strong> {tip.approved ? 'Approved' : 'Pending'}</p>
+
+        {/* View other tips button */}
+        <button className={styles.button}>View Other Tips</button>
+
+        {/* Approve button with loader */}
+        <button className={`${styles.button} ${styles.loaderButton}`}>
+            {tip.approved ? 'Approved' : 'Approve'}
+            {tip.approving && <div className={styles.loader} />}
+        </button>
+
+        <button className={styles.closeButton} onClick={onClose}></button>
     </div>
 );
 
