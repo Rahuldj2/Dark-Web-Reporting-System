@@ -15,6 +15,16 @@ const formatDate = (date) => {
     return date.toLocaleString(undefined,options);
 };
 
+const FloatingWindow = ({ tip,onClose }) => (
+    <div className={styles.floatingWindow}>
+        <h2>Tip Details</h2>
+        <p><strong>Tip ID:</strong> {tip.id}</p>
+        <p><strong>URL:</strong> {tip.url}</p>
+        <p><strong>Datetime:</strong> {formatDate(tip.datetime)}</p>
+        <button onClick={onClose}>Close</button>
+    </div>
+);
+
 const ReviewTip = () => {
     const AllTips = [
         {
@@ -39,6 +49,7 @@ const ReviewTip = () => {
     const [searchTerm,setSearchTerm] = useState('');
     const [sortBy,setSortBy] = useState('datetime');
     const [sortOrder,setSortOrder] = useState('desc');
+    const [selectedTip,setSelectedTip] = useState(null);
 
     useEffect(() => {
         const sortedTips = [...tips].sort((a,b) => {
@@ -63,6 +74,14 @@ const ReviewTip = () => {
                 tip.url.includes(searchTerm)
         );
         setTips(filteredTips);
+    };
+
+    const handleTipClick = (tip) => {
+        setSelectedTip(tip);
+    };
+
+    const handleCloseFloatingWindow = () => {
+        setSelectedTip(null);
     };
 
     return (
@@ -104,10 +123,9 @@ const ReviewTip = () => {
                 </thead>
                 <tbody>
                     {tips.map((tip) => (
-                        <tr key={tip.id}>
+                        <tr key={tip.id} onClick={() => handleTipClick(tip)}>
                             <td className={styles.tableCell}>{tip.id}</td>
                             <td className={styles.tableCell}>{tip.url.slice(0,30)}...</td>
-                            {/* Use suppressHydrationWarning for the timestamp */}
                             <td className={styles.tableCell} suppressHydrationWarning>
                                 {formatDate(tip.datetime)}
                             </td>
@@ -115,6 +133,9 @@ const ReviewTip = () => {
                     ))}
                 </tbody>
             </table>
+            {selectedTip && (
+                <FloatingWindow tip={selectedTip} onClose={handleCloseFloatingWindow} />
+            )}
         </div>
     );
 };
