@@ -3,6 +3,7 @@
 import Layout from './components/Layout';
 import Head from 'next/head';
 import ReportTip from './components/ReportTip';
+import ReviewTip from './components/ReviewTip';
 
 // const inter = Inter({ subsets: ['latin'] })
 
@@ -16,7 +17,8 @@ export default function Home() {
       </Head>
       <div style={{height:'100px'}}></div>
       {/* BELOW COMPONENT GOING BEHIND NAVBAR */}
-      <ReportTip/>
+      {/* <ReportTip /> */}
+      <ReviewTip />
     </Layout>
     // <>
     //   <main className={`${styles.main} ${inter.className}`}>

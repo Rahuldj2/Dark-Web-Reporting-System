@@ -1,0 +1,55 @@
+/* ReviewTip.module.css */
+.reviewTipContainer {
+    background-color: #1e272e;
+    /* Dark background color */
+    color: #ecf0f1;
+    /* Light text color */
+    padding: 20px;
+}
+
+.searchContainer {
+    margin-bottom: 20px;
+}
+
+.inputText {
+    padding: 10px;
+    margin-right: 10px;
+}
+
+.button {
+    padding: 10px;
+    background-color: #3498db;
+    /* Button color */
+    color: #ecf0f1;
+    /* Button text color */
+    border: none;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #2980b9;
+    /* Darker button color on hover */
+}
+
+.tipsTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.tableHeader,
+.tableCell {
+    border: 1px solid #34495e;
+    /* Border color */
+    padding: 10px;
+    text-align: left;
+}
+
+.tableHeader {
+    cursor: pointer;
+}
+
+.tableHeader:hover {
+    background-color: #2c3e50;
+    /* Darker background color on hover */
+}
