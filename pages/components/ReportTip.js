@@ -35,50 +35,50 @@ const ReportTip = () => {
         }
     };
 
-    // const handleSubmit = async () => {
-    //     try {
-    //         // Connect to Metamask
-    //         const { contract,userAccount } = await metaSubmit();
+    const handleSubmit = async () => {
+        try {
+            // Connect to Metamask
+            const { contract,userAccount } = await metaSubmit();
 
-    //         console.log('Contract instance:',contract);
-    //         const todoref = firebase.firestore().collection("tips");
-    //         // Example: Send a transaction to a contract method
-    //         // Assuming you have a method named submitTip in your contract ABI
-    //         // const tx = await contract.methods.submitTip().send({
-    //         //   from: userAccount,
-    //         //   value: ethers.parseEther('0.00000000001'),
-    //         // });
+            console.log('Contract instance:',contract);
+            // const todoref = firebase.firestore().collection("tips");
+            // Example: Send a transaction to a contract method
+            // Assuming you have a method named submitTip in your contract ABI
+            // const tx = await contract.methods.submitTip().send({
+            //   from: userAccount,
+            //   value: ethers.parseEther('0.00000000001'),
+            // });
 
-    //         // Store form information in Firestore
-    //         console.log(url,description,walletId,userAccount);
-    //         try {
-    //             const saveToFirebase = firestore;
-    //             console.log("here");
+            // Store form information in Firestore
+            console.log(url,description,walletId,userAccount);
+            // try {
+            //     const saveToFirebase = firestore;
+            //     console.log("here");
 
-    //             const result = saveToFirebase?.collection("tips")?.set({
-    //                 url: url,
-    //                 description: description,
-    //                 walletId: walletId,
-    //                 userAccount: userAccount,
-    //             }).then(() => console.log('success').catch((error) => {
-    //                 error.message && alert(error.message);
-    //                 console.log(
-    //                     'Something went wrong while adding user data to firestore: ',
-    //                     error,
-    //                 );
-    //                 return 'error';
-    //             }));
+            //     const result = saveToFirebase?.collection("tips")?.set({
+            //         url: url,
+            //         description: description,
+            //         walletId: walletId,
+            //         userAccount: userAccount,
+            //     }).then(() => console.log('success').catch((error) => {
+            //         error.message && alert(error.message);
+            //         console.log(
+            //             'Something went wrong while adding user data to firestore: ',
+            //             error,
+            //         );
+            //         return 'error';
+            //     }));
 
-    //             console.log('Firestore Add Result:',result);
-    //         } catch (error) {
-    //             console.error('Firestore Add Error:',error);
-    //         }
+            //     console.log('Firestore Add Result:',result);
+            // } catch (error) {
+            //     console.error('Firestore Add Error:',error);
+            // }
 
-    //         console.log('Form submitted and data stored in Firestore!');
-    //     } catch (error) {
-    //         console.error('Error:',error);
-    //     }
-    // };
+            console.log('Form submitted and data stored in Firestore!');
+        } catch (error) {
+            console.error('Error:',error);
+        }
+    };
 
     return (
         <div className={styles.reportTipContainer}>
