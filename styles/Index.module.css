@@ -1,0 +1,44 @@
+/* Index.module.css */
+
+.aboutSection, .teamSection {
+    padding: 2rem;
+    /* background-color: var(--screenblack); */
+    color: var(--white);
+}
+
+.aboutSection h2, .teamSection h2 {
+    font-size: 2.5rem;
+    color: #8b1b30;
+}
+
+.aboutSection p, .teamSection p {
+    font-size: 1.5rem;
+    line-height: 1.6;
+}
+
+.flowchartSection {
+    padding: 0rem 2rem;
+    /* background-color: var(--screenblack); */
+    color: var(--white);
+}
+
+.flowchartSection h2 {
+    font-size: 2.5rem;
+    color: #8b1b30;
+}
+
+.teamSection {
+    margin-top: 20px;
+}
+
+.teamDetails {
+    display: flex;
+    align-items: center;
+    padding-top: 1rem;
+}
+
+.teamText {
+    margin-left: 20px;
+}
+
+/* Add any additional styles as needed */

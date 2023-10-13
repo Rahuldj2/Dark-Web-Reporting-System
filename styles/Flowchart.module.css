@@ -1,0 +1,48 @@
+/* Flowchart.module.css */
+
+.react-flow__node {
+    background-color: white;
+    color: var(--white);
+    /* border: 2px solid var(--goodpurple); */
+    border-radius: 8px;
+    /* padding: 10px; */
+}
+
+.react-flow__node-input {
+    /* background-color: var(--green);
+    border-color: var(--green); */
+}
+
+.react-flow__node-output {
+    /* background-color: var(--red);
+    border-color: var(--red); */
+}
+
+.react-flow__edge {
+    /* stroke: var(--goodpurple); */
+}
+
+/* styles/Flowchart.module.css */
+.pageContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 1rem;
+    /* height: 100vh; */
+    /* 100% of the viewport height */
+    /* background-color: #f5f5f5; */
+    /* Light background color */
+}
+
+.flowchartContainer {
+    width: 80%;
+    /* Adjust the width as needed */
+    height: 80vh;
+    /* Adjust the height as needed */
+    background-color: #18916b;
+    /* Contrasting color for the flowchart container */
+    border-radius: 10px;
+    /* Optional: Add border radius for rounded corners */
+}
+
+/* Add any additional styles as needed */
