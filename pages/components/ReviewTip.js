@@ -1,5 +1,6 @@
 import React,{ useState,useEffect } from 'react';
 import styles from '../../styles/ReviewTip.module.css';
+import Login from './Login';
 
 import {
     getFirestore,
@@ -9,25 +10,25 @@ import {
     getDocs,
     doc,
     getDoc,
-  } from 'firebase/firestore';
-  import { app } from './config.js';
+} from 'firebase/firestore';
+import { app } from './config.js';
 
 
 const formatDate = (date) => {
-  if (date instanceof Date) {
-    const options = {
-      year: 'numeric',
-      month: 'numeric',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: 'numeric',
-      second: 'numeric',
-      hour12: true,
-    };
-    return date.toLocaleString(undefined, options);
-  } else {
-    return 'Invalid Date'; // Handle the case when 'date' is undefined or not a valid Date object
-  }
+    if (date instanceof Date) {
+        const options = {
+            year: 'numeric',
+            month: 'numeric',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric',
+            hour12: true,
+        };
+        return date.toLocaleString(undefined,options);
+    } else {
+        return 'Invalid Date'; // Handle the case when 'date' is undefined or not a valid Date object
+    }
 };
 
 
@@ -80,42 +81,43 @@ const ReviewTip = () => {
     const [sortBy,setSortBy] = useState('datetime');
     const [sortOrder,setSortOrder] = useState('desc');
     const [selectedTip,setSelectedTip] = useState(null);
+    const [isLoggedIn,setLoggedIn] = useState(false);
 
     useEffect(() => {
         const fetchTipsFromFirestore = async () => {
             const firestore = getFirestore(app);
-            const usersCollectionRef = collection(firestore, 'users'); // Replace with your actual collection name
-      
+            const usersCollectionRef = collection(firestore,'users'); // Replace with your actual collection name
+
             try {
-              const querySnapshot = await getDocs(usersCollectionRef);
-              const tipData = [];
-      
-              querySnapshot.forEach((doc) => {
-                const userAccount = doc.id;
-                const userData = doc.data();
-                if (userData.tips) {
-                  // If the user has tips, add them to the tipData array
-                  userData.tips.forEach((tip) => {
-                    tipData.push({
-                      ...tip,
-                      userAccount, // Add the userAccount for reference
-                    });
-                  });
-                }
-              });
-      
-              // Log the retrieved tips data to the console
-              console.log('Retrieved tips from Firestore:', tipData);
-      
-             // setTips(tipData);
+                const querySnapshot = await getDocs(usersCollectionRef);
+                const tipData = [];
+
+                querySnapshot.forEach((doc) => {
+                    const userAccount = doc.id;
+                    const userData = doc.data();
+                    if (userData.tips) {
+                        // If the user has tips, add them to the tipData array
+                        userData.tips.forEach((tip) => {
+                            tipData.push({
+                                ...tip,
+                                userAccount, // Add the userAccount for reference
+                            });
+                        });
+                    }
+                });
+
+                // Log the retrieved tips data to the console
+                console.log('Retrieved tips from Firestore:',tipData);
+
+                // setTips(tipData);
             } catch (error) {
-              console.error('Error fetching tips from Firestore:', error);
+                console.error('Error fetching tips from Firestore:',error);
             }
-          };
-      
-          // Call the function to fetch tips when the component mounts
-          fetchTipsFromFirestore();
-      
+        };
+
+        // Call the function to fetch tips when the component mounts
+        fetchTipsFromFirestore();
+
 
 
 
@@ -128,6 +130,12 @@ const ReviewTip = () => {
         });
         setTips(sortedTips);
     },[sortBy,sortOrder]);
+
+    const handleLogin = () => {
+        // TODO: Implement login logic (e.g., check credentials, send verification link, etc.).
+        // For simplicity, let's assume a successful login.
+        setLoggedIn(true);
+    };
 
     const handleSort = (column) => {
         setSortBy(column);
@@ -153,55 +161,62 @@ const ReviewTip = () => {
 
     return (
         <div className={styles.reviewTipContainer}>
-            <div className={styles.searchContainer}>
-                <input
-                    type="text"
-                    className={styles.inputText}
-                    placeholder="Search by Tip ID or URL"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                />
-                <button className={styles.button} onClick={handleSearch}>
-                    Search
-                </button>
-            </div>
-            <table className={styles.tipsTable}>
-                <thead>
-                    <tr>
-                        <th
-                            className={styles.tableHeader}
-                            onClick={() => handleSort('id')}
-                        >
-                            Tip ID
-                        </th>
-                        <th
-                            className={styles.tableHeader}
-                            onClick={() => handleSort('url')}
-                        >
-                            URL
-                        </th>
-                        <th
-                            className={styles.tableHeader}
-                            onClick={() => handleSort('datetime')}
-                        >
-                            Datetime
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {tips.map((tip) => (
-                        <tr key={tip.id} onClick={() => handleTipClick(tip)}>
-                            <td className={styles.tableCell}>{tip.id}</td>
-                            <td className={styles.tableCell}>{tip.url.slice(0,30)}...</td>
-                            <td className={styles.tableCell} suppressHydrationWarning>
-                                {formatDate(tip.datetime)}
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-            {selectedTip && (
-                <FloatingWindow tip={selectedTip} onClose={handleCloseFloatingWindow} />
+            {!isLoggedIn ? (
+                <Login onLogin={handleLogin} />
+            ) : (
+                // Render ReviewTip content here
+                <div className={styles.reviewTipContainer}>
+                    <div className={styles.searchContainer}>
+                        <input
+                            type="text"
+                            className={styles.inputText}
+                            placeholder="Search by Tip ID or URL"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                        <button className={styles.button} onClick={handleSearch}>
+                            Search
+                        </button>
+                    </div>
+                    <table className={styles.tipsTable}>
+                        <thead>
+                            <tr>
+                                <th
+                                    className={styles.tableHeader}
+                                    onClick={() => handleSort('id')}
+                                >
+                                    Tip ID
+                                </th>
+                                <th
+                                    className={styles.tableHeader}
+                                    onClick={() => handleSort('url')}
+                                >
+                                    URL
+                                </th>
+                                <th
+                                    className={styles.tableHeader}
+                                    onClick={() => handleSort('datetime')}
+                                >
+                                    Datetime
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {tips.map((tip) => (
+                                <tr key={tip.id} onClick={() => handleTipClick(tip)}>
+                                    <td className={styles.tableCell}>{tip.id}</td>
+                                    <td className={styles.tableCell}>{tip.url.slice(0,30)}...</td>
+                                    <td className={styles.tableCell} suppressHydrationWarning>
+                                        {formatDate(tip.datetime)}
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                    {selectedTip && (
+                        <FloatingWindow tip={selectedTip} onClose={handleCloseFloatingWindow} />
+                    )}
+                </div>
             )}
         </div>
     );
