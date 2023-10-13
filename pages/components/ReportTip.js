@@ -62,6 +62,7 @@ const ReportTip = () => {
 
                 const txValue = ethers.parseEther('0.1');
 
+
                 const tx = await contract.methods.submitTip().send({
                     from: userAccount,
                     value: txValue,
@@ -99,6 +100,7 @@ const ReportTip = () => {
             console.log('Tip data stored in Firestore subcollection "tips".');
             console.log('Form submitted!');
         }else{
+
 
     console.error('Error:', error);     }
         } catch (error) {
