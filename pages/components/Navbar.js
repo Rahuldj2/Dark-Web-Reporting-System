@@ -1,5 +1,6 @@
 // Navbar.js
-import React,{ useState } from 'react';
+import React,{ useState,useEffect } from 'react';
+import Link from 'next/link';
 import styles from '/styles/Navbar.module.css';
 
 const Navbar = () => {
@@ -19,7 +20,7 @@ const Navbar = () => {
     };
 
     // Add scroll event listener when component mounts
-    React.useEffect(() => {
+    useEffect(() => {
         window.addEventListener('scroll',handleScroll);
 
         // Cleanup the event listener on component unmount
@@ -32,7 +33,9 @@ const Navbar = () => {
         <nav className={`${styles.nav} ${scrolling ? styles.affix : ''}`}>
             <div className={styles.container}>
                 <div className={styles.logo}>
-                    <a href="#">A.S.U.R.</a>
+                    <Link href="#">
+                        A.S.U.R.
+                    </Link>
                 </div>
                 <div id="mainListDiv" className={styles.mainList}>
                     <ul className={styles.navlinks}>
@@ -40,19 +43,25 @@ const Navbar = () => {
                             className={activeTab === 'Home' ? styles.active : ''}
                             onClick={() => handleTabClick('Home')}
                         >
-                            <a href="#">Home</a>
+                            <Link href="/">
+                                Home
+                            </Link>
                         </li>
                         <li
                             className={activeTab === 'Tips' ? styles.active : ''}
                             onClick={() => handleTabClick('Tips')}
                         >
-                            <a href="#">Tips</a>
+                            <Link href="/Tips">
+                                Tips
+                            </Link>
                         </li>
                         <li
                             className={activeTab === 'Reviewing' ? styles.active : ''}
                             onClick={() => handleTabClick('Reviewing')}
                         >
-                            <a href="#">Reviewing</a>
+                            <Link href="/Reviewing">
+                                Reviewing
+                            </Link>
                         </li>
                     </ul>
                 </div>
