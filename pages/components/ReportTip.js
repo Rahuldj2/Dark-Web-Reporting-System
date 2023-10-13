@@ -1,17 +1,17 @@
 // ReportTip.js
-import React,{ useState } from 'react';
+import React, { useState } from 'react';
 import styles from '../../styles/ReportTip.module.css';
 import { ethers } from 'ethers';
-import { contractABI,contract_address } from '../../Contracts/ContractDetails.js';
+import { contractABI, contract_address } from '../../Contracts/ContractDetails.js'
 import Web3 from "web3";
 
-// import { firebase } from './firebase.js';
 
 const ReportTip = () => {
-    const [url,setUrl] = useState('');
-    const [description,setDescription] = useState('');
-    const [walletId,setWalletId] = useState('');
-    const [confirm,setConfirm] = useState(false);
+    const [url, setUrl] = useState('');
+    const [description, setDescription] = useState('');
+    const [walletId, setWalletId] = useState('');
+    // const [amount,setAmount] = useState('');
+    const [confirm, setConfirm] = useState(false);
 
     const metaSubmit = async () => {
         if (typeof window.ethereum !== 'undefined') {
@@ -22,63 +22,70 @@ const ReportTip = () => {
                 method: 'eth_accounts',
             });
             const userAccount = accounts[0];
+            console.log(userAccount)
 
             // Creating an instance of the contract
-            const web3 = new Web3(window.ethereum);
-            const contract = new web3.eth.Contract(contractABI,contract_address);
+            const web3 = new Web3(window.ethereum); // Create a web3 instance
+            const contract = new web3.eth.Contract(contractABI, contract_address);
 
             console.log('MetaMask connected');
-            return { contract,userAccount };
+            return { web3, contract, userAccount } // Return the contract instance
         } else {
             console.log('MetaMask not found');
-            return null;
+            return null; // Return null if MetaMask is not available
         }
     };
 
     const handleSubmit = async () => {
         try {
             // Connect to Metamask
-            const { contract,userAccount } = await metaSubmit();
+            const { web3, contract, userAccount } = await metaSubmit();
 
-            console.log('Contract instance:',contract);
-            // const todoref = firebase.firestore().collection("tips");
-            // Example: Send a transaction to a contract method
-            // Assuming you have a method named submitTip in your contract ABI
-            // const tx = await contract.methods.submitTip().send({
-            //   from: userAccount,
-            //   value: ethers.parseEther('0.00000000001'),
-            // });
+            if (contract) {
+                // Perform contract interaction here
+                // For example, you can call contract methods or send transactions
+                console.log('Contract instance:', contract);
 
-            // Store form information in Firestore
-            console.log(url,description,walletId,userAccount);
-            // try {
-            //     const saveToFirebase = firestore;
-            //     console.log("here");
+                // Example: Call a contract method
+                // const result = await contract.methods.someMethod().call();
+                // console.log('Result of contract method:', result);
 
-            //     const result = saveToFirebase?.collection("tips")?.set({
-            //         url: url,
-            //         description: description,
-            //         walletId: walletId,
-            //         userAccount: userAccount,
-            //     }).then(() => console.log('success').catch((error) => {
-            //         error.message && alert(error.message);
-            //         console.log(
-            //             'Something went wrong while adding user data to firestore: ',
-            //             error,
-            //         );
-            //         return 'error';
-            //     }));
+                // Example: Send a transaction to a contract method
+                //fixing a mortgage amount of 0.1 ether for reporting tip
+                //will use this same logic for reverse transaction once government view is made
+                const txValue = ethers.parseEther('0.1');
+                // Send the transaction with the estimated gas
 
-            //     console.log('Firestore Add Result:',result);
-            // } catch (error) {
-            //     console.error('Firestore Add Error:',error);
-            // }
+                // const gasEstimate = await contract.methods.submitTip().estimateGas({
+                //     from: userAccount,
+                //     value: txValue,
+                // });
+                // console.log(gasEstimate)
+                // const gasEstimateInWei = web3.utils.toWei(gasEstimate, 'gwei');
+                // console.log(gasEstimateInWei)
+                // const gasLimit = gasEstimate + 10000;
 
-            console.log('Form submitted and data stored in Firestore!');
+                // console.log(gasLimit)
+                const tx = await contract.methods.submitTip().send({
+                    from: userAccount,
+                    value: txValue,
+                    gas: web3.utils.toHex(3000000)
+                });
+                // console.log('Transaction hash:', tx.transactionHash);
+
+                console.log('Form submitted!');
+            } else {
+                console.log('MetaMask not available.');
+            }
         } catch (error) {
-            console.error('Error:',error);
+            console.error('Error:', error);
         }
     };
+
+    const handle = () => {
+        console.log(contract_address)
+        console.log(contractABI)
+    }
 
     return (
         <div className={styles.reportTipContainer}>
@@ -93,9 +100,19 @@ const ReportTip = () => {
             </label>
 
             <label className={styles.formLabel}>
+                Import Images:
+                <input type="file" accept="image/*" />
+            </label>
+
+            <label className={styles.formLabel}>
                 Wallet ID:
                 <input type="text" value={walletId} onChange={(e) => setWalletId(e.target.value)} className={styles.formInput} />
             </label>
+
+            {/* <label className={styles.formLabel}>
+                Amount to Deduct:
+                <input type="text" value={amount} onChange={(e) => setAmount(e.target.value)} className={styles.formInput} />
+            </label> */}
 
             <label className={styles.formLabel}>
                 Are You Sure?
