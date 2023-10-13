@@ -4,6 +4,7 @@ import styles from '../../styles/ReportTip.module.css';
 import { ethers } from 'ethers';
 import { contractABI,contract_address } from '../../Contracts/ContractDetails.js';
 import Web3 from "web3";
+import { useMoralis } from 'react-moralis';
 
 // import { firebase } from './firebase.js';
 
@@ -30,6 +31,10 @@ const ReportTip = () => {
     const [description,setDescription] = useState('');
     const [walletId,setWalletId] = useState('');
     const [confirm,setConfirm] = useState(false);
+
+    const {enableWeb3}=useMoralis()
+
+    let connected=false
 
     const metaSubmit = async () => {
         if (typeof window.ethereum !== 'undefined') {
@@ -62,12 +67,22 @@ const ReportTip = () => {
 
                 const txValue = ethers.parseEther('0.1');
 
-
-                const tx = await contract.methods.submitTip().send({
+                // const gasPrice = web3.utils.toWei('1000000
+                const estimatedGas = await contract.methods.submitTip().estimateGas({
                     from: userAccount,
                     value: txValue,
-              
                 });
+    
+                // const gasLimit = Math.ceil(estimatedGas * 1.5); // Add a margin
+                console.log(estimatedGas)
+                // console.log(ga)
+                // const tx = await contract.methods.submitTip().send({
+                //     from: userAccount,
+                //     value: txValue,
+                //     gas: gasLimit,
+                //     gasPrice: gasPrice,
+                // });
+    
             // Create a reference to the "users" collection
             const usersCollectionRef = collection(db, "users");
     
