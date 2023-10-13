@@ -55,7 +55,7 @@ const Login = ({ onLogin }) => {
             <form className={styles.loginForm} onSubmit={handleFormSubmit}>
                 <h2>Login</h2>
                 <label className={styles.formLabel}>
-                    Government ID Key:
+                    Email:
                     <input
                         type="text"
                         value={email}
