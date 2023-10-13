@@ -210,24 +210,7 @@ const handleDisapprove = async(tip) => {
         </div>
     );
     
-    const AllTips = [
-        {
-            id: 'ABC123',
-            url: 'https://abcd1234.com',
-            datetime: new Date('2023-10-12T14:55:17.000Z'),
-        },
-        {
-            id: 'XYZ456',
-            url: 'https://efgh5678.com',
-            datetime: new Date('2023-10-12T13:45:21.000Z'),
-        },
-        {
-            id: 'PQR789',
-            url: 'https://ijkl9012.com',
-            datetime: new Date('2023-10-12T12:30:00.000Z'),
-        },
-        // Add more tips as needed
-    ];
+    const AllTips = [];
 
     const [tips,setTips] = useState(AllTips);
     const [searchTerm,setSearchTerm] = useState('');
