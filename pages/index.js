@@ -2,8 +2,7 @@
 
 import Layout from './components/Layout';
 import Head from 'next/head';
-import ReportTip from './components/ReportTip';
-import ReviewTip from './components/ReviewTip';
+import HomeSlider from './components/HomeSlider';
 
 // const inter = Inter({ subsets: ['latin'] })
 
@@ -22,6 +21,7 @@ export default function Home() {
         Team:
         Three Pointers
       </p>
+      <HomeSlider />
     </Layout>
   )
 }
