@@ -19,10 +19,6 @@ import { useMoralis, useWeb3Contract } from 'react-moralis';
 import { contractABI, contract_address } from '../../Contracts/ContractDetails.js';
 import ethers from 'ethers';
 import TestComponent from './TestComponent';
-import { useMoralis, useWeb3Contract } from 'react-moralis';
-import { contractABI, contract_address } from '../../Contracts/ContractDetails.js';
-import ethers from 'ethers';
-import TestComponent from './TestComponent';
 
 const formatDate = (date) => {
 
