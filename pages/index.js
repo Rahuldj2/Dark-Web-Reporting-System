@@ -9,7 +9,7 @@ import ReviewTip from './components/ReviewTip';
 
 export default function Home() {
   return (
-    <Layout classN>
+    <Layout>
       <Head>
         <title>ASURDWEB</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />

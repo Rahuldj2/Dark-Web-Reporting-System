@@ -1,11 +1,13 @@
 // Navbar.js
 import React,{ useState,useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import styles from '/styles/Navbar.module.css';
 
 const Navbar = () => {
     const [scrolling,setScrolling] = useState(false);
     const [activeTab,setActiveTab] = useState('Home');
+    const router = useRouter();
 
     const handleTabClick = (tabName) => {
         setActiveTab(tabName);
@@ -29,11 +31,23 @@ const Navbar = () => {
         };
     },[]);
 
+    // Update active tab based on current pathname
+    useEffect(() => {
+        const pathname = router.pathname;
+        if (pathname === '/') {
+            setActiveTab('Home');
+        } else if (pathname === '/Tips') {
+            setActiveTab('Tips');
+        } else if (pathname === '/Reviewing') {
+            setActiveTab('Reviewing');
+        }
+    },[router.pathname]);
+
     return (
         <nav className={`${styles.nav} ${scrolling ? styles.affix : ''}`}>
             <div className={styles.container}>
                 <div className={styles.logo}>
-                    <Link href="#">
+                    <Link href="">
                         A.S.U.R.
                     </Link>
                 </div>
