@@ -1,16 +1,16 @@
 /* ReviewTip.module.css */
 
 .reviewTipContainer {
-    position: relative;
+  position: relative;
 }
 
 .searchContainer {
-    margin-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .inputText {
-    padding: 0.3125rem;
-    margin-right: 0.625rem;
+  padding: 0.3125rem;
+  margin-right: 0.625rem;
 }
 /* Add these classes to your CSS file */
 .greenRow {
@@ -29,25 +29,25 @@
   }
   
 .button {
-    padding: 0.375rem 0.625rem;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    cursor: pointer;
+  padding: 0.375rem 0.625rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
 }
 
 .tipsTable {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1.5rem;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.5rem;
 }
 
 .tableHeader,
 .tableCell {
-    border: 1px solid #ddd;
-    padding: 0.5rem;
-    text-align: left;
-    cursor: pointer;
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+  text-align: left;
+  cursor: pointer;
 }
 
 .tableHeader:hover {
@@ -60,81 +60,81 @@
 
 /* Floating Window Styles */
 .floatingWindow {
-    color: #ecf0f1;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 70%;
-    max-width: 500px;
-    /* Set a maximum width for larger screens */
-    background-color: #2c3e50;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 1.25rem;
-    z-index: 999;
+  color: #ecf0f1;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  max-width: 500px;
+  /* Set a maximum width for larger screens */
+  background-color: #2c3e50;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 1.25rem;
+  z-index: 999;
 }
 
 .floatingWindow h2 {
-    margin-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .floatingWindow p {
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 .floatingWindow button {
-    padding: 0.5rem 0.625rem;
-    margin-right: 0.625rem;
-    background-color: #3498db;
-    color: #ecf0f1;
-    border: none;
-    cursor: pointer;
+  padding: 0.5rem 0.625rem;
+  margin-right: 0.625rem;
+  background-color: #3498db;
+  color: #ecf0f1;
+  border: none;
+  cursor: pointer;
 }
 
 .floatingWindow button.loaderButton {
-    position: relative;
+  position: relative;
 }
 
 .floatingWindow button.loaderButton .loader {
-    border: 0.25rem solid #f3f3f3;
-    border-top: 0.25rem solid #3498db;
-    border-radius: 50%;
-    width: 1rem;
-    height: 1rem;
-    animation: spin 1s linear infinite;
-    position: absolute;
-    top: 50%;
-    right: 1.25rem;
-    margin-top: -0.5rem;
+  border: 0.25rem solid #f3f3f3;
+  border-top: 0.25rem solid #3498db;
+  border-radius: 50%;
+  width: 1rem;
+  height: 1rem;
+  animation: spin 1s linear infinite;
+  position: absolute;
+  top: 50%;
+  right: 1.25rem;
+  margin-top: -0.5rem;
 }
 
 @keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
+  0% {
+    transform: rotate(0deg);
+  }
 
-    100% {
-        transform: rotate(360deg);
-    }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .floatingWindow button:hover {
-    background-color: #2980b9;
+  background-color: #2980b9;
 }
 
 button.closeButton {
-    background: url("/close.png") no-repeat center center;
-    background-size: contain;
-    width: 15%;
-    height: 15%;
-    padding: 0;
-    /* text-indent: -9999px; */
-    position: absolute;
-    /* Position the close button */
-    top: 1rem;
-    /* Adjust top position */
-    right: 0;
-    /* Adjust right position */
+  background: url("/close.png") no-repeat center center;
+  background-size: contain;
+  width: 15%;
+  height: 15%;
+  padding: 0;
+  /* text-indent: -9999px; */
+  position: absolute;
+  /* Position the close button */
+  top: 1rem;
+  /* Adjust top position */
+  right: 0;
+  /* Adjust right position */
 }
 
 /* Existing styles... */
