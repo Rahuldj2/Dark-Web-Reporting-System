@@ -1,17 +1,35 @@
 // ReportTip.js
-import React, { useState } from 'react';
+import React,{ useState } from 'react';
 import styles from '../../styles/ReportTip.module.css';
 import { ethers } from 'ethers';
-import { contractABI, contract_address } from '../../Contracts/ContractDetails.js'
+import { contractABI,contract_address } from '../../Contracts/ContractDetails.js';
 import Web3 from "web3";
 
+// import { firebase } from './firebase.js';
 
+import{app} from './config.js';
+import {getFirestore,collection,addDoc,setDoc,doc,getDoc} from 'firebase/firestore';
+
+// const firebaseConfig = {
+//     apiKey: "AIzaSyBrb9MnM6Gp5rrI-1xDrjWJMqJ0RNlvu3M",
+//     authDomain: "asur-dcb94.firebaseapp.com",
+//     projectId: "asur-dcb94",
+//     storageBucket: "asur-dcb94.appspot.com",
+//     messagingSenderId: "223262599301",
+//     appId: "1:223262599301:web:a759110fc75e57864aa1ec",
+//     measurementId: "G-CNTD2ECYTG"
+//   };
+
+//   const app = initializeApp(firebaseConfig);
+// // Initialize Firebase
+
+
+const db = getFirestore(app);
 const ReportTip = () => {
-    const [url, setUrl] = useState('');
-    const [description, setDescription] = useState('');
-    const [walletId, setWalletId] = useState('');
-    // const [amount,setAmount] = useState('');
-    const [confirm, setConfirm] = useState(false);
+    const [url,setUrl] = useState('');
+    const [description,setDescription] = useState('');
+    const [walletId,setWalletId] = useState('');
+    const [confirm,setConfirm] = useState(false);
 
     const metaSubmit = async () => {
         if (typeof window.ethereum !== 'undefined') {
@@ -22,70 +40,72 @@ const ReportTip = () => {
                 method: 'eth_accounts',
             });
             const userAccount = accounts[0];
-            console.log(userAccount)
 
             // Creating an instance of the contract
-            const web3 = new Web3(window.ethereum); // Create a web3 instance
-            const contract = new web3.eth.Contract(contractABI, contract_address);
+            const web3 = new Web3(window.ethereum);
+            const contract = new web3.eth.Contract(contractABI,contract_address);
 
             console.log('MetaMask connected');
-            return { web3, contract, userAccount } // Return the contract instance
+            return { web3,contract,userAccount };
         } else {
             console.log('MetaMask not found');
-            return null; // Return null if MetaMask is not available
+            return null;
         }
     };
 
     const handleSubmit = async () => {
         try {
             // Connect to Metamask
-            const { web3, contract, userAccount } = await metaSubmit();
+            const { web3,contract, userAccount } = await metaSubmit();
+    
+            if(contract){
 
-            if (contract) {
-                // Perform contract interaction here
-                // For example, you can call contract methods or send transactions
-                console.log('Contract instance:', contract);
-
-                // Example: Call a contract method
-                // const result = await contract.methods.someMethod().call();
-                // console.log('Result of contract method:', result);
-
-                // Example: Send a transaction to a contract method
-                //fixing a mortgage amount of 0.1 ether for reporting tip
-                //will use this same logic for reverse transaction once government view is made
                 const txValue = ethers.parseEther('0.1');
-                // Send the transaction with the estimated gas
-
-                // const gasEstimate = await contract.methods.submitTip().estimateGas({
-                //     from: userAccount,
-                //     value: txValue,
-                // });
-                // console.log(gasEstimate)
-                // const gasEstimateInWei = web3.utils.toWei(gasEstimate, 'gwei');
-                // console.log(gasEstimateInWei)
-                // const gasLimit = gasEstimate + 10000;
-
-                // console.log(gasLimit)
+                
                 const tx = await contract.methods.submitTip().send({
                     from: userAccount,
                     value: txValue,
                     gas: web3.utils.toHex(3000000)
                 });
-                // console.log('Transaction hash:', tx.transactionHash);
+            // Create a reference to the "users" collection
+            const usersCollectionRef = collection(db, "users");
+    
+            const userAccountStr = userAccount.toString(); // Convert wallet ID to string
+    
+            // Create a reference to the user's document based on the wallet ID
+            const userDocRef = doc(usersCollectionRef, userAccountStr);
+    
+            // Get the existing user data from Firestore
+            const userDocSnapshot = await getDoc(userDocRef);
+            const userData = userDocSnapshot.data() || {}; // Initialize as an empty object if data doesn't exist
+    
+            // Create a new tip object
+            const newTip = {
+                url: url,
+                description: description,
+                walletId: walletId,
+                solved: false,
+            };
+    
+            // Initialize 'tips' as an empty array if it doesn't exist
+            userData.tips = userData.tips || [];
+            
+            // Add the new tip to the existing tips array in user data
+            userData.tips.push(newTip);
+    
+            // Update the user's document with the updated tips array
+            await setDoc(userDocRef, userData);
+    
+            console.log('Tip data stored in Firestore subcollection "tips".');
+            console.log('Form submitted!');
+        }else{
 
-                console.log('Form submitted!');
-            } else {
-                console.log('MetaMask not available.');
-            }
+    console.error('Error:', error);     }
         } catch (error) {
             console.error('Error:', error);
         }
     };
-
-    const handle = () => {
-        console.log(contract_address)
-        console.log(contractABI)
-    }
+    
 
     return (
         <div className={styles.reportTipContainer}>
@@ -100,19 +120,9 @@ const ReportTip = () => {
             </label>
 
             <label className={styles.formLabel}>
-                Import Images:
-                <input type="file" accept="image/*" />
-            </label>
-
-            <label className={styles.formLabel}>
                 Wallet ID:
                 <input type="text" value={walletId} onChange={(e) => setWalletId(e.target.value)} className={styles.formInput} />
             </label>
-
-            {/* <label className={styles.formLabel}>
-                Amount to Deduct:
-                <input type="text" value={amount} onChange={(e) => setAmount(e.target.value)} className={styles.formInput} />
-            </label> */}
 
             <label className={styles.formLabel}>
                 Are You Sure?
