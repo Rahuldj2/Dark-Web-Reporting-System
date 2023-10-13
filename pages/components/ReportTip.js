@@ -61,11 +61,12 @@ const ReportTip = () => {
             if(contract){
 
                 const txValue = ethers.parseEther('0.1');
-                
+
+
                 const tx = await contract.methods.submitTip().send({
                     from: userAccount,
                     value: txValue,
-                    gas: web3.utils.toHex(3000000)
+              
                 });
             // Create a reference to the "users" collection
             const usersCollectionRef = collection(db, "users");
@@ -99,6 +100,7 @@ const ReportTip = () => {
             console.log('Tip data stored in Firestore subcollection "tips".');
             console.log('Form submitted!');
         }else{
+
 
     console.error('Error:', error);     }
         } catch (error) {
