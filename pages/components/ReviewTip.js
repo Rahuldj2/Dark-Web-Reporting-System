@@ -13,7 +13,7 @@ import {
     doc,
     getDoc,
 } from 'firebase/firestore';
-import { app } from './config.js';
+import { app } from '../../Contracts/config.js';
 
 import { useMoralis,useWeb3Contract } from 'react-moralis';
 import { contractABI,contract_address } from '../../Contracts/ContractDetails.js';

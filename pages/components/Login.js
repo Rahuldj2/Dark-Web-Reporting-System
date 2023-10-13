@@ -1,7 +1,7 @@
 // Login.js
 import React,{ useState,useEffect } from 'react';
 import { getAuth,signInWithEmailAndPassword } from 'firebase/auth';
-import { app } from './config.js';
+import { app } from '../../Contracts/config.js';
 import styles from '../../styles/Login.module.css';
 
 const auth = getAuth(app);

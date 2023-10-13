@@ -5,7 +5,7 @@ import ethers from 'ethers';
 import styles from '../../styles/ReportTip.module.css';
 
 import { getFirestore, doc, getDoc, updateDoc, setDoc, arrayUnion } from 'firebase/firestore';
-import { app } from './config.js'; // Import your Firebase app configuration
+import { app } from '../../Contracts/config.js'; // Import your Firebase app configuration
 
 export default function FundlogicComp() {
     const [url, setUrl] = useState('');
