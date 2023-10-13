@@ -34,7 +34,7 @@ export default function TestComponent(){
         })
     },[])
     return <div>
-        {account?(<div>Connected to {account}</div>):(<button onClick={async ()=>{
+        {account?(<div>Connected to yourMetamask wa{account}</div>):(<button onClick={async ()=>{
             await enableWeb3()
             if (typeof window !== "undefined")
             {
@@ -47,3 +47,4 @@ export default function TestComponent(){
     </div>
 
 }
+

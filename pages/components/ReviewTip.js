@@ -1,6 +1,7 @@
 import React,{ useState,useEffect } from 'react';
 import styles from '../../styles/ReviewTip.module.css';
 // import Login from './Login';
+// import Login from './Login';
 
 import {
     getFirestore,
@@ -14,6 +15,10 @@ import {
 } from 'firebase/firestore';
 import { app } from './config.js';
 
+import { useMoralis, useWeb3Contract } from 'react-moralis';
+import { contractABI, contract_address } from '../../Contracts/ContractDetails.js';
+import ethers from 'ethers';
+import TestComponent from './TestComponent';
 import { useMoralis, useWeb3Contract } from 'react-moralis';
 import { contractABI, contract_address } from '../../Contracts/ContractDetails.js';
 import ethers from 'ethers';
@@ -80,7 +85,6 @@ const handleApprove = async(tip) => {
    
     console.log(`Approving tip: ${tip.tip_id}`);
     console.log(`Approving tip: ${tip.walletId}`);
-    console.log("aayshahuasuas",tip.index);
     SetTipperAddress(tip.walletId)
     SetTipIndex(tip.index)
     SetTf(true)
@@ -108,7 +112,7 @@ const handleApprove = async(tip) => {
                    if (tipIndex !== -1) {
                        // Update the 'solved' field to true for the specific tip
                        tipsArray[tipIndex].solved = true;
-   
+                       tipsArray[tipIndex].status = true;
                        // Update the Firestore document with the updated tips array
                        return setDoc(userDocRef, { tips: tipsArray }, { merge: true });
                    } else {
@@ -162,6 +166,7 @@ const handleDisapprove = async(tip) => {
                  if (tipIndex !== -1) {
                      // Update the 'solved' field to true for the specific tip
                      tipsArray[tipIndex].solved = false;
+                     tipsArray[tipIndex].status = true;
  
                      // Update the Firestore document with the updated tips array
                      return setDoc(userDocRef, { tips: tipsArray }, { merge: true });
@@ -185,13 +190,13 @@ const handleDisapprove = async(tip) => {
     const FloatingWindow = ({ tip,onClose }) => (
         <div className={styles.floatingWindow}>
             <h2>Tip Details</h2>
-            <p><strong>Tip ID:</strong> {tip.id}</p>
-            <p><strong>Date:</strong> {formatDate(tip.datetime)}</p>
-            <p><strong>Time:</strong> {tip?.datetime?.toLocaleTimeString()}</p>
+            <p><strong>Tip ID:</strong> {tip.tip_id}</p>
+       
+     
             <p><strong>Wallet ID:</strong> {tip.walletId || 'N/A'}</p>
-            <p><strong>Amount of Stake:</strong> {tip.amount || 'N/A'}</p>
+            <p><strong>Amount of Stake:</strong> {'0.1 Ether'}</p>
             <p><strong>URL:</strong> {tip.url}</p>
-            <p><strong>Approval Status:</strong> {tip.approved ? 'Approved' : 'Pending'}</p>
+            <p><strong>Approval Status:</strong> {tip.status ? 'Action Taken' : 'Pending'}</p>
     
             {/* View other tips button */}
             
@@ -267,6 +272,7 @@ useEffect(() => {
                                 index: tip.index,
                                 description: tip.description,
                                 solved: tip.solved,
+                                status:tip.status
                             });
                         });
                     } else {
@@ -385,32 +391,33 @@ useEffect(() => {
                         </button>
                     </div>
                     <table className={styles.tipsTable}>
-                        <thead>
-                            <tr>
-                                <th
-                                    className={styles.tableHeader}
-                                    onClick={() => handleSort('id')}
-                                >
-                                    Tip ID
-                                </th>
-                                <th
-                                    className={styles.tableHeader}
-                                    onClick={() => handleSort('url')}
-                                >
-                                    URL
-                                </th>
-                                <th
-                                    className={styles.tableHeader}
-                                    onClick={() => handleSort('url')}
-                                >
-                                    Datetime/Desc
-                                </th>
-                            </tr>
-                        </thead>
+                    <thead>
+  <tr>
+    <th
+      className={`${styles.tableHeader} ${styles.clickable}`}
+      onClick={() => handleSort('id')}
+    >
+      Tip ID
+    </th>
+    <th
+      className={`${styles.tableHeader} ${styles.clickable}`}
+      onClick={() => handleSort('url')}
+    >
+      URL
+    </th>
+    <th
+      className={`${styles.tableHeader} ${styles.clickable}`}
+      onClick={() => handleSort('url')}
+    >
+      Description
+    </th>
+  </tr>
+</thead>
+
                         <tbody>
                             {/* {console.log(tips)} */}
                             {tips.map((tip) => (
-                                <tr key={tip.id} onClick={() => handleTipClick(tip)}>
+                               <tr key={tip.id} onClick={() => handleTipClick(tip)} className={tip.status ? styles.greenRow : styles.redRow}>
                                     <td className={styles.tableCell}>{tip.tip_id}</td>
                                     <td className={styles.tableCell}>{tip.url.slice(0,30)}...</td>
                                     <td className={styles.tableCell}>{tip.description}</td>

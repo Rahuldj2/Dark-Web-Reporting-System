@@ -1,57 +1,45 @@
-// components/HomeSlider.js
-import React,{ useEffect } from 'react';
-import Swiper from 'swiper';
+// HomeSlider.js
+import React from 'react';
+import { Swiper,SwiperSlide } from 'swiper/react';
 import 'swiper/css';
+import 'swiper/css/effect-fade';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import { EffectFade,Navigation,Pagination,Autoplay } from 'swiper/modules';
+import styles from '../../styles/HomeSlider.module.css';
+import Image from 'next/image';
 
-const HomeSlider = () => {
-    useEffect(() => {
-        // Initialize Swiper
-        const swiper = new Swiper('.swiper-container',{
-            // Optional parameters
-            direction: 'horizontal',
-            loop: true,
-
-            // If we need pagination
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-
-            // Navigation arrows
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-
-            // And if we need scrollbar
-            scrollbar: {
-                el: '.swiper-scrollbar',
-            },
-        });
-    },[]);
-
+const HomeSlider = ({ imageArray }) => {
     return (
-        <div className="swiper-container">
-            {/* Additional required wrapper */}
-            <div className="swiper-wrapper">
-                {/* Slides */}
-                <div className="swiper-slide">Slide 1</div>
-                <div className="swiper-slide">Slide 2</div>
-                <div className="swiper-slide">Slide 3</div>
-                {/* Add more slides as needed */}
-            </div>
-            {/* If we need pagination */}
-            <div className="swiper-pagination"></div>
-
-            {/* If we need navigation buttons */}
-            <div className="swiper-button-prev"></div>
-            <div className="swiper-button-next"></div>
-
-            {/* If we need scrollbar */}
-            <div className="swiper-scrollbar"></div>
-        </div>
+        <Swiper
+            spaceBetween={30}
+            effect={'fade'}
+            navigation={true}
+            pagination={{
+                clickable: true,
+            }}
+            loop={true}
+            modules={[EffectFade,Navigation,Pagination,Autoplay]}
+            autoplay={{
+                delay: 2000,
+                disableOnInteraction: false,
+            }}
+            className="mySwiper"
+        >
+            {imageArray.map((imageName,index) => (
+                <SwiperSlide key={index}>
+                    <div className={styles.slideWrapper}>
+                        <Image
+                            src={`/${imageName}`}
+                            alt={`Slide ${index + 1}`}
+                            width={1000}
+                            height={600}
+                        // fill
+                        />
+                    </div>
+                </SwiperSlide>
+            ))}
+        </Swiper>
     );
 };
 

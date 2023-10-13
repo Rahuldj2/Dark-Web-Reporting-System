@@ -12,7 +12,22 @@
   padding: 0.3125rem;
   margin-right: 0.625rem;
 }
-
+/* Add these classes to your CSS file */
+.greenRow {
+    background-color: rgb(9, 119, 136);
+    color: white;
+  }
+  /* Add this style to your CSS file to change the color of table headers to white */
+.tableHeader {
+    color: white;
+    /* Add any additional styling you need for table headers here */
+  }
+  
+  .redRow {
+    background-color: red;
+    color: white;
+  }
+  
 .button {
   padding: 0.375rem 0.625rem;
   background-color: #007bff;
@@ -36,11 +51,11 @@
 }
 
 .tableHeader:hover {
-  background-color: #f5f5f5;
+    background-color: #098050;
 }
 
 .tableCell:hover {
-  background-color: #f0f0f0;
+    background-color: #0bc4ce;
 }
 
 /* Floating Window Styles */
