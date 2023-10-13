@@ -13,9 +13,11 @@ export default function FundlogicComp(){
     const [confirm,setConfirm] = useState(false);
 
 
-    const {id,isWeb3Enabled}=useMoralis()
+    const {id,isWeb3Enabled,account}=useMoralis()
     const chainId= 11155111;
     const[fee,setFee]=useState("0")
+
+    const[augFee,setAugFee]=useState("0")
     const {runContractFunction: submitTip}=useWeb3Contract({
         abi:contractABI,
         contractAddress:contract_address,
@@ -24,12 +26,37 @@ export default function FundlogicComp(){
         msgValue:fee
     })
 
+    const {runContractFunction: getTips}=useWeb3Contract({
+        abi:contractABI,
+        contractAddress:contract_address,
+        functionName:"getTips",
+        params:{"user":account},
+    })
+
+    
+    const handleClick= async()=>{
+        try {
+            console.log("hi");
+            console.log(account)
+            await submitTip()
+            const tipList = await getTips(account);
+            console.log(tipList.length)
+            console.log(tipList);
+        } catch (error) {
+            console.error("Error fetching tips:", error);
+        }
+    }
+
+
+    
     useEffect(()=>{
         if (isWeb3Enabled)
         {
             setFee('100000000000000000')
+            setAugFee('100000000000000000')
         }   
     })
+
 
     return(
         <div>
@@ -54,8 +81,11 @@ export default function FundlogicComp(){
             </label>
 
 
+            {/* <button className={confirm ? styles.submitButton : styles.submitButtonDisabled}
+                disabled={!confirm} onClick={async function(){console.log("hi");await submitTip()}}>Submit tip</button> */}
+
             <button className={confirm ? styles.submitButton : styles.submitButtonDisabled}
-                disabled={!confirm} onClick={async function(){console.log("hi");await submitTip()}}>Submit tip</button>
+                disabled={!confirm} onClick={handleClick}>Submit tip</button>
         </div>
 
     )
