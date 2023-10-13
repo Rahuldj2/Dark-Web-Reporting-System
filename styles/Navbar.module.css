@@ -9,6 +9,7 @@
     background-color: var(--goodpurple);
     padding-bottom: 1rem;
     transition: background-color 0.4s ease, padding 0.4s ease;
+    z-index: 1000;
 }
 
 .affix {
