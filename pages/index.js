@@ -9,20 +9,17 @@ const imageArray = ['image1.jpeg','image2.jpeg','image3.jpeg','image4.jpeg','ima
 
 export default function Home() {
   return (
-    <Layout>
-      <Head>
-        <title>ASURDWEB</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <div style={{ height: '70px' }}></div>
-      
-      {/* <h1>ASURDWEB</h1>
-      <p>
-        Team:
-        Three Pointers
-      </p> */}
+    <div>
+      <Layout>
+        <Head>
+          <title>ASURDWEB</title>
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+
+      </Layout>
+      <div style={{ height: '20px' }}></div>
       <HomeSlider imageArray={imageArray} />
-    </Layout>
-  )
+    </div>
+  );
 }

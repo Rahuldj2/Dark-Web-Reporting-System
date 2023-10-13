@@ -18,6 +18,7 @@ const HomeSlider = ({ imageArray }) => {
             pagination={{
                 clickable: true,
             }}
+            loop={true}
             modules={[EffectFade,Navigation,Pagination,Autoplay]}
             autoplay={{
                 delay: 2000,
