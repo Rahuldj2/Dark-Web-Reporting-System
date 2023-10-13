@@ -1,40 +1,40 @@
 /* ReportTip.module.css */
 
 .reportTipContainer {
-  max-width: 400px;
-  margin: auto;
-  /* background-color: #1f1f1f; */
+    max-width: 400px;
+    margin: auto;
+    /* background-color: #1f1f1f; */
 }
 
 .formLabel {
-  display: block;
-  margin-bottom: 10px;
-  color: #00f300;
-  /* Secondary color */
+    display: block;
+    margin-bottom: 10px;
+    color: #00f300;
+    /* Secondary color */
 }
 
 .formInput {
-  width: 100%;
-  padding: 8px;
-  margin-top: 5px;
-  margin-bottom: 10px;
-  box-sizing: border-box;
-  border: 1px solid #1f1f1f;
-  /* Secondary color */
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border: 1px solid #1f1f1f;
+    /* Secondary color */
 }
 
 .submitButton {
-  padding: 10px;
-  background-color: #6a5acd;
-  /* Lavender color */
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  display: block;
-  width: 100%;
+    padding: 10px;
+    background-color: #6a5acd;
+    /* Lavender color */
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    display: block;
+    width: 100%;
 }
 
 .submitButtonDisabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+    background-color: #ccc;
+    cursor: not-allowed;
 }
