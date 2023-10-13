@@ -8,7 +8,7 @@
 
 .aboutSection h2, .teamSection h2 {
     font-size: 2.5rem;
-    color: #8b1b30;
+    color: #437fe7;
 }
 
 .aboutSection p, .teamSection p {
@@ -24,7 +24,7 @@
 
 .flowchartSection h2 {
     font-size: 2.5rem;
-    color: #8b1b30;
+    color: #437fe7;
 }
 
 .teamSection {
@@ -34,7 +34,8 @@
 .teamDetails {
     display: flex;
     align-items: center;
-    padding-top: 1rem;
+    padding-top: 1.5rem;
+    justify-content: center;
 }
 
 .teamText {

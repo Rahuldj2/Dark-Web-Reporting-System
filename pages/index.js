@@ -38,7 +38,7 @@ export default function Home() {
       <div className={styles.teamSection}>
         <h2>Meet The Team</h2>
         <div className={styles.teamDetails}>
-          <Image src={'/team.jpg'} alt='' width={500} height={500} />
+          <Image src={'/team.jpg'} style={{marginRight:'100px',borderRadius:'20px'}}alt='' width={500} height={500} />
           <div className={styles.teamText}>
             <p>
               Team Name: Three Pointers
