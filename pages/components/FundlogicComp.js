@@ -55,7 +55,7 @@ export default function FundlogicComp(){
 
 
             <button className={confirm ? styles.submitButton : styles.submitButtonDisabled}
-                disabled={!confirm} onClick={async function(){await submitTip()}}>Submit tip</button>
+                disabled={!confirm} onClick={async function(){console.log("hi");await submitTip()}}>Submit tip</button>
         </div>
 
     )
