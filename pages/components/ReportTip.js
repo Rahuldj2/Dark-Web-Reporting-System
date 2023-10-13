@@ -1,5 +1,5 @@
 // ReportTip.js
-import React,{ useState } from 'react';
+import React, { useState } from 'react';
 import styles from '../../styles/ReportTip.module.css';
 import { ethers } from 'ethers';
 import { contractABI, contract_address } from '../../Contracts/ContractDetails.js'
@@ -7,11 +7,11 @@ import Web3 from "web3";
 
 
 const ReportTip = () => {
-    const [url,setUrl] = useState('');
-    const [description,setDescription] = useState('');
-    const [walletId,setWalletId] = useState('');
+    const [url, setUrl] = useState('');
+    const [description, setDescription] = useState('');
+    const [walletId, setWalletId] = useState('');
     // const [amount,setAmount] = useState('');
-    const [confirm,setConfirm] = useState(false);
+    const [confirm, setConfirm] = useState(false);
 
     const metaSubmit = async () => {
         if (typeof window.ethereum !== 'undefined') {
@@ -22,13 +22,14 @@ const ReportTip = () => {
                 method: 'eth_accounts',
             });
             const userAccount = accounts[0];
+            console.log(userAccount)
 
             // Creating an instance of the contract
             const web3 = new Web3(window.ethereum); // Create a web3 instance
             const contract = new web3.eth.Contract(contractABI, contract_address);
 
             console.log('MetaMask connected');
-            return { contract, userAccount } // Return the contract instance
+            return { web3, contract, userAccount } // Return the contract instance
         } else {
             console.log('MetaMask not found');
             return null; // Return null if MetaMask is not available
@@ -38,7 +39,7 @@ const ReportTip = () => {
     const handleSubmit = async () => {
         try {
             // Connect to Metamask
-            const { contract, userAccount }=await metaSubmit();
+            const { web3, contract, userAccount } = await metaSubmit();
 
             if (contract) {
                 // Perform contract interaction here
@@ -50,13 +51,27 @@ const ReportTip = () => {
                 // console.log('Result of contract method:', result);
 
                 // Example: Send a transaction to a contract method
-                //fixing a mortgage amount of 0.4 ether for reporting tip
+                //fixing a mortgage amount of 0.1 ether for reporting tip
                 //will use this same logic for reverse transaction once government view is made
+                const txValue = ethers.parseEther('0.1');
+                // Send the transaction with the estimated gas
+
+                // const gasEstimate = await contract.methods.submitTip().estimateGas({
+                //     from: userAccount,
+                //     value: txValue,
+                // });
+                // console.log(gasEstimate)
+                // const gasEstimateInWei = web3.utils.toWei(gasEstimate, 'gwei');
+                // console.log(gasEstimateInWei)
+                // const gasLimit = gasEstimate + 10000;
+
+                // console.log(gasLimit)
                 const tx = await contract.methods.submitTip().send({
                     from: userAccount,
-                    value: ethers.parseEther('0.4'), // Send 0.4 ether with the transaction
+                    value: txValue,
+                    gas: web3.utils.toHex(3000000)
                 });
-                console.log('Transaction hash:', tx.transactionHash);
+                // console.log('Transaction hash:', tx.transactionHash);
 
                 console.log('Form submitted!');
             } else {
@@ -67,7 +82,7 @@ const ReportTip = () => {
         }
     };
 
-    const handle=()=>{
+    const handle = () => {
         console.log(contract_address)
         console.log(contractABI)
     }
