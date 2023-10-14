@@ -394,7 +394,7 @@ const ReviewTip = () => {
 
                             <tbody>
                                 {/* {console.log(tips)} */}
-                                {tips.map((tip) => (
+                                {tips?.map((tip) => (
                                     <tr key={tip.id} onClick={() => handleTipClick(tip)} className={tip.status ? styles.greenRow : styles.redRow}>
                                         <td className={styles.tableCell}>{tip.tip_id}</td>
                                         <td className={styles.tableCell}>{tip.url.slice(0,30)}...</td>

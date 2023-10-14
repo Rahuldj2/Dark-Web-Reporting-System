@@ -26,7 +26,7 @@ const HomeSlider = ({ imageArray }) => {
             }}
             className="mySwiper"
         >
-            {imageArray.map((imageName,index) => (
+            {imageArray?.map((imageName,index) => (
                 <SwiperSlide key={index}>
                     <div className={styles.slideWrapper}>
                         <Image
